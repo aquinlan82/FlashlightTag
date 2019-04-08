@@ -2,11 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
-
-// This openFrameworks example is designed to demonstrate how to access the
-// webcam.
-//
-// For more information regarding this example take a look at the README.md.
+#include "controller.h"
+#include "view.h"
+#include "model.h"
 
 class ofApp : public ofBaseApp {
 
@@ -28,16 +26,11 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	void temp();
+	Controller control;
+	Model model;
+	View view;
+	
 
-	ofVideoGrabber vid_grabber;
-	ofPixels combined_video;
-	ofPixels hidden_screen;
-	ofTexture video_texture;
-	int cam_width;
-	int cam_height;
-	int thresh;
 
-	ofxCvContourFinder contourFinder;
-	ofxCvGrayscaleImage grayDiff;
+	
 };
