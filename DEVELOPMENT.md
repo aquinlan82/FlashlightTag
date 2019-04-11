@@ -28,3 +28,15 @@
 	* Next Steps:
 		* At some point I'd like to do more tuning to make the controls better
 		* Start to develop the view class so that something actually appears on the cursor
+
+* Entry Three
+	* Accomplishments:
+		* I added a screen under the cursor to represent the area the player is searching. I also tweaked the settings for detecting the
+		cursor and cleaned up with comments.
+	* Problems:
+		* The largest problem was that there are many obscure settings I needed to set for the screen to display properly. For example, the
+		hidden screen had to be initalized with a certain enum so that it would be in color. The setColor method also tints the screen
+		in an unexpected way, which took some time to figure out. There was also a double for loop that was making the video laggy, but I 
+		fixed it by looping over a smaller area.
+	* Next Steps:
+		* Figure out how to determine when you've won

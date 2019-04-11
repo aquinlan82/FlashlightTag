@@ -6,41 +6,45 @@
 
 using namespace cv;
 
-void Controller::setupCamera() {
-	cam_width = 320;  
-	cam_height = 240;
-	thresh = 250;
+/* Open set camera settings */
+void Controller::setupCamera(int width, int height) {
+	cam_width_ = width;  
+	cam_height_ = height;
+	thresh_ = 250;
 
-	vid_grabber.setDeviceID(0);
-	vid_grabber.setVerbose(true);
-	vid_grabber.setDesiredFrameRate(60);
-	vid_grabber.initGrabber(cam_width, cam_height);
+	vid_grabber_.setDeviceID(0);
+	vid_grabber_.setVerbose(true);
+	vid_grabber_.setDesiredFrameRate(60);
+	vid_grabber_.initGrabber(cam_width_, cam_height_);
 
-	color_img.allocate(cam_width, cam_height);
-	mask.allocate(cam_width, cam_height);
+	color_img_.allocate(cam_width_, cam_height_);
+	mask_.allocate(cam_width_, cam_height_);
 }
 
+/* Update colored image from camera*/
 void Controller::updateColorImg()
 {
-	vid_grabber.update();
-	color_img.setFromPixels(vid_grabber.getPixels());
-	ofPixels& pixels = vid_grabber.getPixels();
+	vid_grabber_.update();
+	color_img_.setFromPixels(vid_grabber_.getPixels());
+	ofPixels& pixels = vid_grabber_.getPixels();
 }
 
+/* Use threshold to mask only bright spots*/
 void Controller::updateMaskImg()
 {
-	mask = color_img;
-	mask.threshold(thresh);
-	//magic
-	contour_finder.findContours(mask, 500, 2500, 25, false, true);
+	mask_ = color_img_;
+	mask_.threshold(thresh_);
+	//magic numbers
+	contour_finder_.findContours(mask_, 2000, 10000, 25, false, true);
 }
 
+/* Set bright_spots using openCV*/
 void Controller::findCircles()
 {
-	bright_spots.clear();
-	if (contour_finder.blobs.size() > 0) {
-		for (int i = 0; i < contour_finder.nBlobs; i++) {
-			vector<glm::vec3> points = contour_finder.blobs.at(i).pts;
+	bright_spots_.clear();
+	if (contour_finder_.blobs.size() > 0) {
+		for (int i = 0; i < contour_finder_.nBlobs; i++) {
+			vector<glm::vec3> points = contour_finder_.blobs.at(i).pts;
 			vector<Point> allPixels;
 
 			for (int j = 0; j < points.size(); j++) {
@@ -52,53 +56,45 @@ void Controller::findCircles()
 			float radius;
 			minEnclosingCircle(allPixels, center, radius);
 
-			bright_spots.push_back({(int)center.x, (int)center.y, (int)radius, (int)contour_finder.blobs.at(i).area});
+			bright_spots_.push_back({(int)center.x, (int)center.y, (int)radius, (int)contour_finder_.blobs.at(i).area});
 		}
 
 	}
 }
 
+/* Find location and size of cursor*/
 vector<int> Controller::calculateCursor(int last_x, int last_y, int last_r)
 {
+	//fix magic numbers
 	vector<int> spot_score;
-	int circle_multiplier = 1;
+	int circle_multiplier = 2;
 	int radius_mulitplier = 1;
 	int location_multiplier = 1;
-	std::cout << "==================================" << std::endl;
 	//find the most circly
-	for (vector<int> spot : bright_spots) {
-		spot_score.push_back((int)(100 - 100 * (spot[3] / (PI * (spot[RADIUS] * spot[RADIUS]))) * circle_multiplier));
-		std::cout << ((int)(100 - 100 * (spot[3] / (PI * (spot[RADIUS] * spot[RADIUS]))) * circle_multiplier)) << " ";
+	for (vector<int> spot : bright_spots_) {
+		spot_score.push_back((int)(100 - 100 * (spot[AREA] / (PI * (spot[RADIUS] * spot[RADIUS]))) * circle_multiplier));
 	}
-	std::cout << std::endl;
 	
 	//find closest to good radius
-	int good_radius = 20;
-	for (int i = 0; i < bright_spots.size(); i++) {
-		spot_score[i] += abs(bright_spots[i][RADIUS] - good_radius) * radius_mulitplier;
-		std::cout << abs(bright_spots[i][RADIUS] - good_radius) * radius_mulitplier << " ";
+	for (int i = 0; i < bright_spots_.size(); i++) {
+		spot_score[i] += abs(bright_spots_[i][RADIUS] - cursor_radius_) * radius_mulitplier;
 	}
-	std::cout << std::endl;
 	
 	//keep track of one paticular blob b/c continuity
 	if (last_r > 0) {
-		for (int i = 0; i < bright_spots.size(); i++) {
-			spot_score[i] += abs(bright_spots[i][X] - last_x) + abs(bright_spots[i][Y] - last_y) * location_multiplier;
-			std::cout << abs(bright_spots[i][X] - last_x) + abs(bright_spots[i][Y] - last_y) * location_multiplier << " ";
+		for (int i = 0; i < bright_spots_.size(); i++) {
+			spot_score[i] += abs(bright_spots_[i][X] - last_x) + abs(bright_spots_[i][Y] - last_y) * location_multiplier;
 		}
 	}
-	std::cout << std::endl;
 
 	//find lowest score (best match)
 	double min_score = 30000;
 	vector<int> best_spot = { 0,0,0,0 };
 	for (int i = 0; i < spot_score.size(); i++) {
-		std::cout << spot_score[i] << " ";
 		if (spot_score[i] < min_score) {
 			min_score = spot_score[i];
-			best_spot = bright_spots[i];
+			best_spot = bright_spots_[i];
 		}
 	}
-	std::cout << std::endl;
 	return best_spot;
 }

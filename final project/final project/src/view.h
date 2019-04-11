@@ -8,11 +8,13 @@ public:
 	int cam_width;
 	int cam_height;
 	ofPixels combined_video;
-	ofPixels hidden_screen;
+	ofImage hidden_screen;
+	ofPixels mask;
 	ofTexture video_texture;
 
 	void setupScreens(int width, int height);
-	void loadHiddenScreen();
-	void combineScreens();
-	void drawScreen();
+	void drawScreen(int cursor_x, int cursor_y);
+	void createMask(int cursor_x, int cursor_y);
+	void combineMaskAndRoom(int cursor_x, int cursor_y);
+	void loadRoom();
 };

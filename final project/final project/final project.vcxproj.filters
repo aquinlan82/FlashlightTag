@@ -1442,7 +1442,7 @@
       <Filter>res</Filter>
     </Image>
     <Image Include="icon.ico" />
-    <Image Include="bin\data\testpic.png">
+    <Image Include="bin\data\black_screen.jpg">
       <Filter>res</Filter>
     </Image>
   </ItemGroup>

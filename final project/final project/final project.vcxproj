@@ -605,8 +605,8 @@ C:\Users\aquin\Documents\126\of_v0.10.1_vs2017_release\addons\ofxGui\src;%(Addit
     <None Include="..\..\PROPOSAL.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bin\data\black_screen.jpg" />
     <Image Include="bin\data\test.jpg" />
-    <Image Include="bin\data\testpic.png" />
     <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

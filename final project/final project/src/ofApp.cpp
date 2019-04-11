@@ -7,58 +7,45 @@
 #include <iostream>
 #include <stdio.h>
 
-//?
 using namespace cv;
 
 void ofApp::setup() {
-	control.setupCamera();
-	view.setupScreens(control.cam_width, control.cam_height);
+	control.setupCamera(ofGetWidth(), ofGetHeight());
+	view.setupScreens(ofGetWidth(), ofGetHeight());
 }
 
 void ofApp::update() {
-	ofBackground(100, 100, 100);
 	control.updateColorImg();
-	if (control.vid_grabber.isFrameNew()) {
+	if (control.vid_grabber_.isFrameNew()) {
 		control.updateMaskImg();
 		control.findCircles();
 		vector<int> cursor = control.calculateCursor(model.cursor_x, model.cursor_y, model.cursor_r);
-		model.setCursor(cursor[0], cursor[1], cursor[2]);
+		model.setCursor(cursor[control.X], cursor[control.Y], cursor[control.RADIUS]);
 	}
 }
 
 void ofApp::draw() {
-	
-	ofSetHexColor(0xffffff);
-
-	ofTexture video_texture;
-	video_texture.loadData(control.mask.getPixels());
-	video_texture.draw(20 + 320, 20, 320, 240);
-	
-	control.vid_grabber.draw(20, 20);
-
-	ofSetColor(255, 0, 0);
-	ofDrawCircle(model.cursor_x + 20, model.cursor_y + 20, 20);
-
+	view.drawScreen(model.cursor_x, model.cursor_y);
 }
 
 //--------------------------------------------------------------//
 void ofApp::keyPressed(int key) {
-	std::cout << "thresh: " << control.thresh << std::endl;
+	std::cout << "thresh: " << control.thresh_ << std::endl;
 	
 	if (key == 's' || key == 'S') {
-		control.vid_grabber.videoSettings();
+		control.vid_grabber_.videoSettings();
 	}
 	if (key == 'r') {
-		control.thresh += 10;
+		control.thresh_ += 10;
 	}
 	if (key == 'f' ) {
-		control.thresh -= 10;
+		control.thresh_ -= 10;
 	}
 	if (key == 't') {
-		control.thresh ++;
+		control.thresh_ ++;
 	}
 	if (key == 'g') {
-		control.thresh --;
+		control.thresh_ --;
 	}
 }
 
@@ -91,3 +78,6 @@ void ofApp::gotMessage(ofMessage msg) {
 
 void ofApp::dragEvent(ofDragInfo dragInfo) {
 }
+
+
+

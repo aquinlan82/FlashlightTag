@@ -29,8 +29,9 @@ public:
 	Controller control;
 	Model model;
 	View view;
-	
 
-
+	ofTrueTypeFont	verdana14;
 	
 };
+
+
