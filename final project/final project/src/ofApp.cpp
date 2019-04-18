@@ -10,42 +10,57 @@
 using namespace cv;
 
 void ofApp::setup() {
-	control.setupCamera(ofGetWidth(), ofGetHeight());
+	control.setup(ofGetWidth(), ofGetHeight(), true);
 	view.setupScreens(ofGetWidth(), ofGetHeight());
 }
 
 void ofApp::update() {
 	control.updateColorImg();
-	if (control.vid_grabber_.isFrameNew()) {
+	//if (control.getCameraImage().isFrameNew()) {
 		control.updateMaskImg();
 		control.findCircles();
-		vector<int> cursor = control.calculateCursor(model.cursor_x, model.cursor_y, model.cursor_r);
-		model.setCursor(cursor[control.X], cursor[control.Y], cursor[control.RADIUS]);
-	}
+		vector<int> cursor = control.calculateCursor(model.getCursor(), model.display_radius_);
+		model.setCursor(cursor[control.X], cursor[control.Y], model.display_radius_);
+		control.printBrightSpots();
+	//}
+	model.checkWin();
 }
 
 void ofApp::draw() {
-	view.drawScreen(model.cursor_x, model.cursor_y);
+	if (model.game_state_ == model.WIN) {
+		view.drawWinScreen();
+	}
+	if (model.game_state_ == model.CALIBRATE) {
+		view.drawThreshold(model.getCursor(), control.getMask());
+	}
+	if (model.game_state_ == model.GAME) {
+		view.drawGameScreen(model.getCursor(), model.getGoalName());
+	}
 }
 
 //--------------------------------------------------------------//
 void ofApp::keyPressed(int key) {
-	std::cout << "thresh: " << control.thresh_ << std::endl;
-	
 	if (key == 's' || key == 'S') {
-		control.vid_grabber_.videoSettings();
+		control.getCameraImage().videoSettings();
 	}
-	if (key == 'r') {
-		control.thresh_ += 10;
+	if (key == 'r' || key == 'R') {
+		control.addToThresh(10);
 	}
-	if (key == 'f' ) {
-		control.thresh_ -= 10;
+	if (key == 'f' || key == 'F') {
+		control.addToThresh(-10);
 	}
-	if (key == 't') {
-		control.thresh_ ++;
+	if (key == 't' || key == 'T') {
+		control.addToThresh(1);
 	}
-	if (key == 'g') {
-		control.thresh_ --;
+	if (key == 'g' || key == 'G') {
+		control.addToThresh(-1);
+	}
+	if (key == 'n' && model.game_state_ != model.GAME) {
+		model.setGoal();
+		model.game_state_ = model.GAME;
+	}
+	if (key == 'c' || key == 'C') {
+		model.game_state_ = model.CALIBRATE;
 	}
 }
 
@@ -78,6 +93,4 @@ void ofApp::gotMessage(ofMessage msg) {
 
 void ofApp::dragEvent(ofDragInfo dragInfo) {
 }
-
-
 

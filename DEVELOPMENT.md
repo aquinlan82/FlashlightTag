@@ -11,7 +11,7 @@
 	* Problems:
 		* As I said, the videograbber detects the bright lights coming through windows as the same brightness as a flashlight,
 		so I will probably have to use openCV to detect the circular shape of a flashlight
-
+**Week 2**
 * Entry Two
 	* Accomplishments: 
 		* I started by setting up a class structure. I made a controller, view, and model class, based on what we learned in lecture. I
@@ -40,3 +40,15 @@
 		fixed it by looping over a smaller area.
 	* Next Steps:
 		* Figure out how to determine when you've won
+
+* Entry Four
+	* Accomplishments:
+		* Cleaned up which methods and variables should be public/private
+		* Added tests. I just added tests for some of the bigger methods and will probably make them more rigourous later, but I wanted to make 
+		sure I was thinking about how to test while writing the source code.
+		
+	* Problems: 
+		*The most difficult part of this was that I wanted to be able to use my methods with static images instead of the camera
+		for testing, but the ofx library is really weird about converting between different types of images. I also didn't really write any tests
+		for View because it mostly draws stuff to the screen, which is both easy to see is working and difficult to test automatically.
+	

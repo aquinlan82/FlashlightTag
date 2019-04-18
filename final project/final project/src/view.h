@@ -5,16 +5,25 @@
 
 class View {
 public:
-	int cam_width;
-	int cam_height;
-	ofPixels combined_video;
-	ofImage hidden_screen;
-	ofPixels mask;
-	ofTexture video_texture;
+	int const RADIUS = 2;
+	int const X = 0;
+	int const Y = 1;
 
 	void setupScreens(int width, int height);
-	void drawScreen(int cursor_x, int cursor_y);
+	void drawGameScreen(std::vector<int> cursor, std::string goal);
+	void drawWinScreen();
 	void createMask(int cursor_x, int cursor_y);
 	void combineMaskAndRoom(int cursor_x, int cursor_y);
 	void loadRoom();
+	void drawThreshold(std::vector<int> cursor, ofxCvGrayscaleImage mask);
+
+private:
+	int cam_width_;
+	int cam_height_;
+	ofPixels combined_video_;
+	ofImage hidden_screen_;
+	ofPixels mask_;
+	ofImage win_screen_;
+	ofTexture video_texture_;
+	ofTrueTypeFont	text;
 };
