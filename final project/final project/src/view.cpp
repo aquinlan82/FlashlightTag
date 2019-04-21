@@ -3,7 +3,7 @@
 #include <cv.h>
 
 /* Initalize screens used in this class */
-void View::setupScreens(int width, int height) {
+void View::setupScreens(int width, int height, std::string start_file) {
 	text.load("verdana.ttf", 12);
 
 	cam_width_ = width;
@@ -14,13 +14,16 @@ void View::setupScreens(int width, int height) {
 	mask_.allocate(cam_width_, cam_height_, OF_PIXELS_RGB);
 	win_screen_.allocate(cam_width_, cam_height_, OF_IMAGE_COLOR);
 	ofSetVerticalSync(true);
+
+	loadRoom(start_file);
 }
 
 /* Sets mask as a black screen with a red cursor*/
-void View::createMask(int cursor_x, int cursor_y) {
+void View::createMask(int cursor_x, int cursor_y, int cursor_r) {
+	//cursor_r = 500;
 	ofBackground(0, 0, 0);
 	ofSetColor(255, 0, 0);
-	ofDrawCircle(cursor_x, cursor_y, 30);
+	ofDrawCircle(cursor_x, cursor_y, cursor_r);
 	ofSetColor(255, 255, 255);
 
 	ofTexture temp;
@@ -30,34 +33,36 @@ void View::createMask(int cursor_x, int cursor_y) {
 }
 
 /* Sets room image in area where cursor shines*/
-void View::combineMaskAndRoom(int cursor_x, int cursor_y) {
+void View::combineMaskAndRoom(int cursor_x, int cursor_y, int cursor_r) {
+	//cursor_r = 500;
 	ofImage img("black_screen.jpg");
 	img.resize(cam_width_, cam_height_);
 	combined_video_ = img.getPixels();
-	for (int x = cursor_x - 30; x < cursor_x + 30; x++) {
-		for (int y = cursor_y - 30; y < cursor_y + 30; y++) {
+	for (int x = cursor_x - cursor_r; x < cursor_x + cursor_r; x++) {
+		for (int y = cursor_y - cursor_r; y < cursor_y + cursor_r; y++) {
 			if (x < 0 || x >= cam_width_ || y < 0 || y >= cam_height_) {
 				continue;
 			}
-			if (mask_.getColor(x, cam_height_ - y) == ofColor(255, 0, 0)) {
+			if (mask_.getColor(x, cam_height_ - 1 - y) == ofColor(255, 0, 0)) {
 				combined_video_.setColor(x, y, hidden_screen_.getColor(x, y));
 			}
 		}
 	}
+	
 }
 
 /* Gets image under cursor*/
-void View::loadRoom() {
-	hidden_screen_.load("ispy.jpg");
+void View::loadRoom(string filename) {
+	cout << filename << endl;
+	hidden_screen_.load(filename);
 	hidden_screen_.resize(cam_width_, cam_height_);
 	hidden_screen_.setImageType(OF_IMAGE_COLOR);
 }
 
 /* Draws combined image*/
-void View::drawGameScreen(vector<int> cursor, string goal) {
-	createMask(cursor[X], cursor[Y]);
-	loadRoom();
-	combineMaskAndRoom(cursor[X], cursor[Y]);
+void View::drawGameScreen(vector<int> cursor, string goal, string filename) {
+	createMask(cursor[X], cursor[Y], cursor[RADIUS]);
+	combineMaskAndRoom(cursor[X], cursor[Y], cursor[RADIUS]);
 	video_texture_.loadData(combined_video_);
 	video_texture_.draw(0, 0);
 

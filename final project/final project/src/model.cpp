@@ -17,8 +17,7 @@ bool Model::checkWin()
 {
 	int win_radius = cursor_r_ * win_sensitivity_;
 
-	if ((current_goal_.getX() < cursor_x_ + win_radius && current_goal_.getX() > cursor_x_ - win_radius &&
-		current_goal_.getY() < cursor_y_ + win_radius && current_goal_.getY() > cursor_y_ - win_radius) && game_state_ == GAME) {
+	if (game_state_ == GAME && map.checkWin(win_radius, cursor_x_, cursor_y_)) {
 		game_state_ = WIN;
 		return true;
 	}
@@ -30,19 +29,6 @@ bool Model::checkWin()
 	return false;
 }
 
-void Model::generateGoals() {
-	Goal temp;
-	goals_.push_back(temp.set("an Orange Button", 790, 180));
-	goals_.push_back(temp.set("Mickey Mouse", 213, 488));
-	goals_.push_back(temp.set("the Letter R", 294, 110));
-}
-
-void Model::setGoal() {
-	generateGoals();
-	int index = rand() % (goals_.size());
-	current_goal_ = goals_[index];
-}
-
 vector<int> Model::getCursor()
 {
 	vector<int> cursor;
@@ -52,12 +38,19 @@ vector<int> Model::getCursor()
 	return cursor;
 }
 
-string Model::getGoalName()
-{
-	return current_goal_.getName();
+void Model::generateMap() {
+	map.generateHouse();
 }
 
-vector<int> Model::getGoalLocation() {
-	vector<int> location = { current_goal_.getX(), current_goal_.getY() };
-	return location;
+std::string Model::getGoalName() {
+	return map.getGoalName();
+}
+
+bool Model::try_open_door(char activation_key)
+{
+	return map.try_open_door(activation_key);
+}
+
+std::string Model::getFilename() {
+	return map.getFilename();
 }

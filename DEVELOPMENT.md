@@ -48,7 +48,19 @@
 		sure I was thinking about how to test while writing the source code.
 		
 	* Problems: 
-		*The most difficult part of this was that I wanted to be able to use my methods with static images instead of the camera
+		* The most difficult part of this was that I wanted to be able to use my methods with static images instead of the camera
 		for testing, but the ofx library is really weird about converting between different types of images. I also didn't really write any tests
 		for View because it mostly draws stuff to the screen, which is both easy to see is working and difficult to test automatically.
+**Week 3**
+*Entry Five
+	* Accomplishments:
+		* I started setting up the classes for the map part of the game. I created Map, Room, and Door objects and figured out how to organize them
+		into the existing project. This was surprisingly easy.
+	* Problems:
+		* I didn't run into many problems while actually adding the code. I spent the most time considering what objects deserved their own class
+		and the responsibilities of each object. Once I decided on that it was mostly a matter of rearranging code to fit the new structure.
+	* Next Steps:
+		* I discovered a bug caused by the center of the cursor being off screen
+		* The game is kind of laggy, so I'm considering ways to optimize the code
+		* Consider adding an alternate way to move the cursor for when the flashlight cursor is iffy
 	

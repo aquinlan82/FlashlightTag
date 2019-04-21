@@ -109,6 +109,15 @@
     <ClCompile Include="src\tests.cpp">
       <Filter>tests</Filter>
     </ClCompile>
+    <ClCompile Include="src\room.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\door.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -317,6 +326,9 @@
     </Filter>
     <Filter Include="tests">
       <UniqueIdentifier>{d8290a47-2463-41ed-9d96-2fa27c11126b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\room_pics">
+      <UniqueIdentifier>{e74ea2d0-5e7e-4829-9417-8eb52783ab69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1434,6 +1446,15 @@
     <ClInclude Include="src\catch.hpp">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="src\map.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\room.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\door.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
@@ -1468,6 +1489,21 @@
     </Image>
     <Image Include="bin\data\mask3.png">
       <Filter>tests</Filter>
+    </Image>
+    <Image Include="bin\data\bed1.jpg">
+      <Filter>res\room_pics</Filter>
+    </Image>
+    <Image Include="bin\data\kitchen1.jpg">
+      <Filter>res\room_pics</Filter>
+    </Image>
+    <Image Include="bin\data\livingroom1.jpg">
+      <Filter>res\room_pics</Filter>
+    </Image>
+    <Image Include="bin\data\office1.jpg">
+      <Filter>res\room_pics</Filter>
+    </Image>
+    <Image Include="bin\data\entry1.jpg">
+      <Filter>res\room_pics</Filter>
     </Image>
   </ItemGroup>
 </Project>

@@ -11,7 +11,8 @@ using namespace cv;
 
 void ofApp::setup() {
 	control.setup(ofGetWidth(), ofGetHeight(), true);
-	view.setupScreens(ofGetWidth(), ofGetHeight());
+	view.setupScreens(ofGetWidth(), ofGetHeight(), "entry1.jpg");
+	model.generateMap();
 }
 
 void ofApp::update() {
@@ -21,7 +22,7 @@ void ofApp::update() {
 		control.findCircles();
 		vector<int> cursor = control.calculateCursor(model.getCursor(), model.display_radius_);
 		model.setCursor(cursor[control.X], cursor[control.Y], model.display_radius_);
-		control.printBrightSpots();
+		//control.printBrightSpots();
 	//}
 	model.checkWin();
 }
@@ -34,7 +35,7 @@ void ofApp::draw() {
 		view.drawThreshold(model.getCursor(), control.getMask());
 	}
 	if (model.game_state_ == model.GAME) {
-		view.drawGameScreen(model.getCursor(), model.getGoalName());
+		view.drawGameScreen(model.getCursor(), model.getGoalName(), model.getFilename());
 	}
 }
 
@@ -56,12 +57,17 @@ void ofApp::keyPressed(int key) {
 		control.addToThresh(-1);
 	}
 	if (key == 'n' && model.game_state_ != model.GAME) {
-		model.setGoal();
 		model.game_state_ = model.GAME;
 	}
 	if (key == 'c' || key == 'C') {
 		model.game_state_ = model.CALIBRATE;
 	}
+	if (key == OF_KEY_UP || key == OF_KEY_DOWN || key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
+		if (model.try_open_door(key)) {
+			view.loadRoom(model.getFilename());
+		}
+	}
+	
 }
 
 void ofApp::keyReleased(int key) {
