@@ -46,9 +46,9 @@ std::string Model::getGoalName() {
 	return map.getGoalName();
 }
 
-bool Model::try_open_door(char activation_key)
+bool Model::tryOpenDoor(char activation_key)
 {
-	return map.try_open_door(activation_key);
+	return map.tryOpenDoor(activation_key);
 }
 
 std::string Model::getFilename() {

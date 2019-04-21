@@ -12,10 +12,7 @@ public:
 	int const Y = 1;
 
 	void setup(int width, int height, bool useCamera);
-	void updateColorImg();
-	void updateMaskImg();
-	void updateMaskImg(string filename);
-	void findCircles();
+	void updateInput();
 	vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
 	void setSize(int width, int height);
 	int getWidth();
@@ -26,7 +23,7 @@ public:
 	vector<vector<int>> getBrightSpots();
 	void printBrightSpots();
 
-private:
+protected:
 	int cam_width_;
 	int cam_height_;
 	int thresh_;
@@ -35,4 +32,22 @@ private:
 	ofxCvColorImage color_img_;
 	ofxCvContourFinder contour_finder_;
 	ofxCvGrayscaleImage mask_;
+};
+
+class FlashController : public Controller {
+private:
+	void updateColorImg();
+	void updateMaskImg();
+	void updateMaskImg(string filename);
+	void findCircles();
+
+public:
+	void updateInput();
+	vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
+};
+
+
+class MouseController : public Controller {
+public:
+	vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
 };

@@ -209,7 +209,9 @@ C:\Users\aquin\Documents\126\of_v0.10.1_vs2017_release\addons\ofxGui\src;%(Addit
     <ClCompile Include="..\..\..\of_v0.10.1_vs2017_release\addons\ofxOpenCv\src\ofxCvHaarFinder.cpp" />
     <ClCompile Include="..\..\..\of_v0.10.1_vs2017_release\addons\ofxOpenCv\src\ofxCvImage.cpp" />
     <ClCompile Include="..\..\..\of_v0.10.1_vs2017_release\addons\ofxOpenCv\src\ofxCvShortImage.cpp" />
+    <ClCompile Include="flash_controller.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="mouse_controller.cpp" />
     <ClCompile Include="src\controller.cpp" />
     <ClCompile Include="src\door.cpp" />
     <ClCompile Include="src\room.cpp" />

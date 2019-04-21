@@ -17,9 +17,10 @@ public:
 	const int WIN_Y = 2;
 
 	void generateHouse();
+	void generateGoals();
 	std::string getCurrentName();
 	bool checkWin(int win_radius, int cursor_x, int cursor_y);
-	bool try_open_door(char activation_key);
+	bool tryOpenDoor(char activation_key);
 	std::string getGoalName();
 	std::string getFilename();
 

@@ -118,6 +118,12 @@
     <ClCompile Include="map.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="mouse_controller.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="flash_controller.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

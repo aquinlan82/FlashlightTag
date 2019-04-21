@@ -16,7 +16,6 @@ std::string Room::openDoor(char activation_key)
 {
 
 	for (Door door : doors_) {
-		cout << "     " << door.getActivationKey() << endl;
 		if (door.getActivationKey() == activation_key) {
 			return door.getNextName();
 		}

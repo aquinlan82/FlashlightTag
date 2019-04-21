@@ -16,14 +16,9 @@ void ofApp::setup() {
 }
 
 void ofApp::update() {
-	control.updateColorImg();
-	//if (control.getCameraImage().isFrameNew()) {
-		control.updateMaskImg();
-		control.findCircles();
-		vector<int> cursor = control.calculateCursor(model.getCursor(), model.display_radius_);
-		model.setCursor(cursor[control.X], cursor[control.Y], model.display_radius_);
-		//control.printBrightSpots();
-	//}
+	control.updateInput();
+	vector<int> cursor = control.calculateCursor(model.getCursor(), model.display_radius_);
+	model.setCursor(cursor[control.X], cursor[control.Y], model.display_radius_);
 	model.checkWin();
 }
 
@@ -56,14 +51,16 @@ void ofApp::keyPressed(int key) {
 	if (key == 'g' || key == 'G') {
 		control.addToThresh(-1);
 	}
-	if (key == 'n' && model.game_state_ != model.GAME) {
-		model.game_state_ = model.GAME;
-	}
-	if (key == 'c' || key == 'C') {
-		model.game_state_ = model.CALIBRATE;
+	if (key == ' ') {
+		if (model.game_state_ == model.CALIBRATE) {
+			model.game_state_ = model.GAME;
+		}
+		else if (model.game_state_ == model.GAME) {
+			model.game_state_ = model.CALIBRATE;
+		}
 	}
 	if (key == OF_KEY_UP || key == OF_KEY_DOWN || key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
-		if (model.try_open_door(key)) {
+		if (model.tryOpenDoor(key)) {
 			view.loadRoom(model.getFilename());
 		}
 	}

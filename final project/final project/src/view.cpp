@@ -20,7 +20,6 @@ void View::setupScreens(int width, int height, std::string start_file) {
 
 /* Sets mask as a black screen with a red cursor*/
 void View::createMask(int cursor_x, int cursor_y, int cursor_r) {
-	//cursor_r = 500;
 	ofBackground(0, 0, 0);
 	ofSetColor(255, 0, 0);
 	ofDrawCircle(cursor_x, cursor_y, cursor_r);
@@ -34,7 +33,6 @@ void View::createMask(int cursor_x, int cursor_y, int cursor_r) {
 
 /* Sets room image in area where cursor shines*/
 void View::combineMaskAndRoom(int cursor_x, int cursor_y, int cursor_r) {
-	//cursor_r = 500;
 	ofImage img("black_screen.jpg");
 	img.resize(cam_width_, cam_height_);
 	combined_video_ = img.getPixels();
@@ -53,7 +51,6 @@ void View::combineMaskAndRoom(int cursor_x, int cursor_y, int cursor_r) {
 
 /* Gets image under cursor*/
 void View::loadRoom(string filename) {
-	cout << filename << endl;
 	hidden_screen_.load(filename);
 	hidden_screen_.resize(cam_width_, cam_height_);
 	hidden_screen_.setImageType(OF_IMAGE_COLOR);
@@ -70,7 +67,6 @@ void View::drawGameScreen(vector<int> cursor, string goal, string filename) {
 	ofDrawRectangle(0, 0, cam_width_, 20);
 	ofSetColor(0, 0, 0);
 	text.drawString("Please find " + goal, 50, 15);
-	text.drawString(to_string(cursor[X]) + "  " + to_string(cursor[Y]), 300, 15);
 	ofSetColor(255, 255, 255);
 }
 

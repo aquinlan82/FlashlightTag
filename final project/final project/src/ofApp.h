@@ -26,7 +26,7 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	Controller control;
+	MouseController control;
 	Model model;
 	View view;
 	

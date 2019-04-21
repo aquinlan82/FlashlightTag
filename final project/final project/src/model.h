@@ -4,8 +4,6 @@
 
 class Model {
 private:
-	
-
 	int cursor_x_ = 0;
 	int cursor_y_ = 0;
 	int cursor_r_ = 0;
@@ -14,7 +12,7 @@ private:
 
 
 public:
-	int display_radius_ = 30;
+	int display_radius_ = 50;
 	enum states_ { CALIBRATE, GAME, WIN };
 	int game_state_ = CALIBRATE;
 
@@ -23,6 +21,6 @@ public:
 	void generateMap();
 	vector<int> getCursor();
 	std::string getGoalName();
-	bool try_open_door(char activation_key);
+	bool tryOpenDoor(char activation_key);
 	std::string getFilename();
 };

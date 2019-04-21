@@ -52,7 +52,7 @@
 		for testing, but the ofx library is really weird about converting between different types of images. I also didn't really write any tests
 		for View because it mostly draws stuff to the screen, which is both easy to see is working and difficult to test automatically.
 **Week 3**
-*Entry Five
+* Entry Five
 	* Accomplishments:
 		* I started setting up the classes for the map part of the game. I created Map, Room, and Door objects and figured out how to organize them
 		into the existing project. This was surprisingly easy.
@@ -63,4 +63,16 @@
 		* I discovered a bug caused by the center of the cursor being off screen
 		* The game is kind of laggy, so I'm considering ways to optimize the code
 		* Consider adding an alternate way to move the cursor for when the flashlight cursor is iffy
+
+* Entry Six
+	* Accomplishments:
+		* I implemented a way to play the game with the mouse instead of a flashlight. There is not currently a way to switch between the two
+		modes once the game has started, but it is really easy to change it in the code.
+		* I created goals for the user to actually look for, so that the game can now be properly played.
+	* Problems:
+		* I wanted to make it possible to switch between the mouse and flashlight in the game. I don't know how hard it will be to actually do this,
+		but I ran into some errors that I didn't feel like dealing with yet, so it isn't implemented. I may or may not fix this since the point
+		of the game in the end is to use the flashlight
+	* Next Steps:
+		* I still need to fix the bugs from the last entry
 	
