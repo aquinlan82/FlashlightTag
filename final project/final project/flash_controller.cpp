@@ -6,6 +6,7 @@
 
 using namespace cv;
 
+/* Create mask and find bright spots from video feed */
 void FlashController::updateInput() {
 	updateColorImg();
 	if (getCameraImage().isFrameNew()) {
@@ -13,19 +14,16 @@ void FlashController::updateInput() {
 		findCircles();
 	}
 }
-
-
-/* Update colored image from camera*/
-void FlashController::updateColorImg()
-{
+ 
+/* Update colored image from camera */
+void FlashController::updateColorImg() {
 	vid_grabber_.update();
 	color_img_.setFromPixels(vid_grabber_.getPixels());
 	color_img_.mirror(false, true);
 }
 
-/* Use threshold to mask only bright spots*/
-void FlashController::updateMaskImg()
-{
+/* Use threshold to mask only bright spots */
+void FlashController::updateMaskImg() {
 	int NUM_BLOBS = 25;
 	int MAX_AREA = 10000;
 	int MIN_AREA = 2000;
@@ -35,42 +33,35 @@ void FlashController::updateMaskImg()
 	contour_finder_.findContours(mask_, MIN_AREA, MAX_AREA, NUM_BLOBS, false, true);
 }
 
-/* Use picture mask instead of camera*/
-void FlashController::updateMaskImg(string filename)
-{
-	color_img_.allocate(1390, 675);
+/* Use picture mask instead of camera */
+void FlashController::updateMaskImg(string filename) {
+	color_img_.allocate(cam_width_, cam_height_);
 	ofImage temp(filename);
 	color_img_.setFromPixels(temp.getPixels());
 	updateMaskImg();
 }
 
-/* Set bright_spots using openCV*/
-void FlashController::findCircles()
-{
+/* Set bright_spots using openCV */
+void FlashController::findCircles() {
 	bright_spots_.clear();
 	if (contour_finder_.blobs.size() > 0) {
 		for (int i = 0; i < contour_finder_.nBlobs; i++) {
 			vector<glm::vec3> points = contour_finder_.blobs.at(i).pts;
 			vector<Point> allPixels;
-
 			for (int j = 0; j < points.size(); j++) {
 				Point temp(points[j].x, points[j].y);
 				allPixels.push_back(temp);
 			}
-
 			Point2f center;
 			float radius;
 			minEnclosingCircle(allPixels, center, radius);
-
 			bright_spots_.push_back({ (int)center.x, (int)center.y, (int)radius, (int)contour_finder_.blobs.at(i).area });
 		}
-
 	}
 }
 
 /* Find location and size of cursor*/
-vector<int> FlashController::calculateCursor(vector<int> last_cursor, int display_radius)
-{
+vector<int> FlashController::calculateCursor(vector<int> last_cursor, int display_radius) {
 	vector<int> spot_score;
 	int circle_multiplier = 2;
 	int radius_mulitplier = 1;

@@ -10,6 +10,7 @@ public:
 	int const RADIUS = 2;
 	int const X = 0;
 	int const Y = 1;
+	int const DEFAULT_THRESH = 250;
 
 	void setup(int width, int height, bool useCamera);
 	void updateInput();
@@ -35,13 +36,12 @@ protected:
 };
 
 class FlashController : public Controller {
-private:
+public:
 	void updateColorImg();
 	void updateMaskImg();
 	void updateMaskImg(string filename);
 	void findCircles();
 
-public:
 	void updateInput();
 	vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
 };

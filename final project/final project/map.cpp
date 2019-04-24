@@ -1,8 +1,7 @@
 #include "map.h"
 
-//house setup hardcoded
-void Map::generateHouse()
-{
+/* Creates the rooms in the house */
+void Map::generateHouse() {
 	//entry
 	rooms_.push_back(Room("entry", "entry1.jpg", vector<Door> { Door("living room", OF_KEY_UP), Door("kitchen", OF_KEY_LEFT)}));
 	//kitchen
@@ -14,10 +13,11 @@ void Map::generateHouse()
 	//office
 	rooms_.push_back(Room("office", "office1.jpg", vector<Door> { Door("bedroom", OF_KEY_DOWN)}));
 
-	generateGoals();
+	generateGoals(-1);
 }
 
-void Map::generateGoals() {
+/* Randomly selects a goal object and sets win_info */
+void Map::generateGoals(int seed) {
 	vector<std::string> names = { "a broom", "a red chair", "an old phone", "a painting of a man wearing green",
 	"an oven mitt", "a corn magnet", "a chicken", "many spoons",
 	"the Count from Seasame Street", "a pair of glasses sitting on a laptop", "a glass chandelier", "a green lamp",
@@ -45,20 +45,24 @@ void Map::generateGoals() {
 	{4,876,281},
 	{4,495,533} };
 
-	int index = rand() % (names.size());
-	goal_name_ = names[index];
-	win_info_.push_back(coords[index][WIN_INDEX]);
-	win_info_.push_back(coords[index][WIN_X]);
-	win_info_.push_back(coords[index][WIN_Y]);
+	if (seed < 0 || seed >= names.size()) {
+		seed = rand() % (names.size());
+	}
+
+	goal_name_ = names[seed];
+	win_info_.clear();
+	win_info_.push_back(coords[seed][WIN_INDEX]);
+	win_info_.push_back(coords[seed][WIN_X]);
+	win_info_.push_back(coords[seed][WIN_Y]);
 }
 
-std::string Map::getCurrentName()
-{
+/* Return name of current room */
+std::string Map::getCurrentName() {
 	return rooms_[current_index_].getName();
 }
 
-bool Map::checkWin(int win_radius, int cursor_x, int cursor_y)
-{
+/* Checks that cursor is in location of goal and correct room */
+bool Map::checkWin(int win_radius, int cursor_x, int cursor_y) {
 	if (win_info_[WIN_INDEX] == current_index_ && 
 		(win_info_[WIN_X] < cursor_x + win_radius && win_info_[WIN_X] > cursor_x - win_radius &&
 		win_info_[WIN_Y] < cursor_y + win_radius && win_info_[WIN_Y] > cursor_y - win_radius)) {
@@ -67,8 +71,8 @@ bool Map::checkWin(int win_radius, int cursor_x, int cursor_y)
 	return false;
 }
 
-bool Map::tryOpenDoor(char activation_key)
-{
+/* Changes current room to room opened by key. Returns true if successful false otherwise */
+bool Map::tryOpenDoor(char activation_key) {
 	std::string new_current_name = rooms_[current_index_].openDoor(activation_key);
 	if (new_current_name == rooms_[current_index_].getName()) {
 		return false;
@@ -82,10 +86,17 @@ bool Map::tryOpenDoor(char activation_key)
 	return false;
 }
 
+/* Return name of goal item*/
 std::string Map::getGoalName() {
 	return goal_name_;
 }
 
+/* Return filename for image of the current room */
 std::string Map::getFilename() {
 	return rooms_[current_index_].getImageName();
+}
+
+/* Return win_info */
+std::vector<int> Map::getWinInfo() {
+	return win_info_;
 }

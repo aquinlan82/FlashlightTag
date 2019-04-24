@@ -8,7 +8,7 @@ private:
 	int cursor_y_ = 0;
 	int cursor_r_ = 0;
 	double win_sensitivity_ = 0.5;
-	Map map;
+	Map map_;
 
 
 public:
@@ -23,4 +23,6 @@ public:
 	std::string getGoalName();
 	bool tryOpenDoor(char activation_key);
 	std::string getFilename();
+	vector<int> getGoalLocation();
+	void setGoal(int seed);
 };

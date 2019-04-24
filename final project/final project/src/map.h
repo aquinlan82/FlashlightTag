@@ -17,12 +17,12 @@ public:
 	const int WIN_Y = 2;
 
 	void generateHouse();
-	void generateGoals();
+	void generateGoals(int seed);
 	std::string getCurrentName();
 	bool checkWin(int win_radius, int cursor_x, int cursor_y);
 	bool tryOpenDoor(char activation_key);
 	std::string getGoalName();
 	std::string getFilename();
-
+	std::vector<int> getWinInfo();
 
 };

@@ -6,10 +6,11 @@
 
 using namespace cv;
 
+/* Initializes variables and camera if needed */
 void Controller::setup(int width, int height, bool useCamera) {
 	cam_width_ = width;
 	cam_height_ = height;
-	thresh_ = 250;
+	thresh_ = DEFAULT_THRESH;
 	color_img_.allocate(cam_width_, cam_height_);
 
 	if (useCamera) {
@@ -20,49 +21,47 @@ void Controller::setup(int width, int height, bool useCamera) {
 	}
 }
 
-void Controller::printBrightSpots()
-{
+/* Prints all found blobs. Used in debugging */
+void Controller::printBrightSpots() {
 	for (int spot = 0; spot < bright_spots_.size(); spot++) {
 		cout << "X: " << bright_spots_[spot][X] << " Y: " << bright_spots_[spot][Y] << " Area: " << bright_spots_[spot][AREA] << endl;
 	}
 }
 
-void Controller::setSize(int width, int height)
-{
-	cam_width_ = width;
-	cam_height_ = height;
+/* Set width and height of screen*/
+void Controller::setSize(int width, int height) {
+	if (width > 0 && height > 0) {
+		cam_width_ = width;
+		cam_height_ = height;
+	}
 }
 
-int Controller::getWidth()
-{
+int Controller::getWidth() {
 	return cam_width_;
 }
 
-int Controller::getHeight()
-{
+int Controller::getHeight() {
 	return cam_height_;
 }
 
-void Controller::addToThresh(int amount)
-{
+void Controller::addToThresh(int amount) {
 	thresh_ += amount;
 }
 
-ofVideoGrabber Controller::getCameraImage()
-{
+ofVideoGrabber Controller::getCameraImage() {
 	return vid_grabber_;
 }
 
-ofxCvGrayscaleImage Controller::getMask()
-{
+ofxCvGrayscaleImage Controller::getMask() {
 	return mask_;
 }
 
-vector<vector<int>> Controller::getBrightSpots()
-{
+vector<vector<int>> Controller::getBrightSpots() {
 	return bright_spots_;
 }
 
+/* Not strictly needed for mouse but used for inheritance reasons */
 void Controller::updateInput() {
-	//not strictly needed for mouse but used for inheritance reasons
+	
 }
+

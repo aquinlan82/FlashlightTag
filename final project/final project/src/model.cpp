@@ -7,17 +7,20 @@
 
 using namespace cv;
 
+/* Sets location and size of cursor */
 void Model::setCursor(int x, int y, int radius) {
-	cursor_x_ = x;
-	cursor_y_ = y;
-	cursor_r_ = radius;
+	if (x > 0 && y > 0 && radius > 0) {
+		cursor_x_ = x;
+		cursor_y_ = y;
+		cursor_r_ = radius;
+	}
 }
 
-bool Model::checkWin()
-{
+/* Checks that cursor is in goal location and game state is correct */
+bool Model::checkWin() {
 	int win_radius = cursor_r_ * win_sensitivity_;
 
-	if (game_state_ == GAME && map.checkWin(win_radius, cursor_x_, cursor_y_)) {
+	if (game_state_ == GAME && map_.checkWin(win_radius, cursor_x_, cursor_y_)) {
 		game_state_ = WIN;
 		return true;
 	}
@@ -26,11 +29,12 @@ bool Model::checkWin()
 		game_state_ = WIN;
 		return true;
 	}
+
 	return false;
 }
 
-vector<int> Model::getCursor()
-{
+/* Returns cursor as a vector: {x, y, radius} */
+vector<int> Model::getCursor() {
 	vector<int> cursor;
 	cursor.push_back(cursor_x_);
 	cursor.push_back(cursor_y_);
@@ -38,19 +42,30 @@ vector<int> Model::getCursor()
 	return cursor;
 }
 
+/* Creates rooms */
 void Model::generateMap() {
-	map.generateHouse();
+	map_.generateHouse();
 }
 
+/* Returns name of goal object */
 std::string Model::getGoalName() {
-	return map.getGoalName();
+	return map_.getGoalName();
 }
 
-bool Model::tryOpenDoor(char activation_key)
-{
-	return map.tryOpenDoor(activation_key);
+/* Returns true if room changed, false otherwise */
+bool Model::tryOpenDoor(char activation_key) {
+	return map_.tryOpenDoor(activation_key);
 }
 
+/* Returns filename of image for current room*/
 std::string Model::getFilename() {
-	return map.getFilename();
+	return map_.getFilename();
+}
+
+std::vector<int> Model::getGoalLocation() {
+	return map_.getWinInfo();
+}
+
+void Model::setGoal(int seed) {
+	map_.generateGoals(seed);
 }

@@ -7,6 +7,10 @@
 #include "model.h"
 
 class ofApp : public ofBaseApp {
+private:
+	FlashController control_;
+	Model model_;
+	View view_;
 
 public:
 
@@ -25,10 +29,6 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-
-	MouseController control;
-	Model model;
-	View view;
 	
 };
 

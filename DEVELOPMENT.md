@@ -76,3 +76,12 @@
 	* Next Steps:
 		* I still need to fix the bugs from the last entry
 	
+* Entry Seven
+	* Accomplishments:
+		* I finished up my tests. I was able to cover the controller and model classes fairly well. I
+		didn't do much direct testing on the room and door classes because I did test the map class and 
+		it is so reliant on the other two classes
+		* I added some input validation to fix the bugs I found before. I'm not completely sure that the problem is gone but I haven't been able to 
+		replicated the error. I also made it slightly less laggy by deleting a few lines that unneccessarily drew on the screen.
+	* Problems:
+		* I didn't do much testing on the view class because I didn't know how to test image output in a meaningful way.

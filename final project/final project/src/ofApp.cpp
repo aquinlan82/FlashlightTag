@@ -10,58 +10,58 @@
 using namespace cv;
 
 void ofApp::setup() {
-	control.setup(ofGetWidth(), ofGetHeight(), true);
-	view.setupScreens(ofGetWidth(), ofGetHeight(), "entry1.jpg");
-	model.generateMap();
+	control_.setup(ofGetWidth(), ofGetHeight(), true);
+	view_.setupScreens(ofGetWidth(), ofGetHeight(), "entry1.jpg");
+	model_.generateMap();
 }
 
 void ofApp::update() {
-	control.updateInput();
-	vector<int> cursor = control.calculateCursor(model.getCursor(), model.display_radius_);
-	model.setCursor(cursor[control.X], cursor[control.Y], model.display_radius_);
-	model.checkWin();
+	control_.updateInput();
+	vector<int> cursor = control_.calculateCursor(model_.getCursor(), model_.display_radius_);
+	model_.setCursor(cursor[control_.X], cursor[control_.Y], model_.display_radius_);
+	model_.checkWin();
 }
 
 void ofApp::draw() {
-	if (model.game_state_ == model.WIN) {
-		view.drawWinScreen();
+	if (model_.game_state_ == model_.WIN) {
+		view_.drawWinScreen();
 	}
-	if (model.game_state_ == model.CALIBRATE) {
-		view.drawThreshold(model.getCursor(), control.getMask());
+	if (model_.game_state_ == model_.CALIBRATE) {
+		view_.drawThreshold(model_.getCursor(), control_.getMask());
 	}
-	if (model.game_state_ == model.GAME) {
-		view.drawGameScreen(model.getCursor(), model.getGoalName(), model.getFilename());
+	if (model_.game_state_ == model_.GAME) {
+		view_.drawGameScreen(model_.getCursor(), model_.getGoalName(), model_.getFilename());
 	}
 }
 
 //--------------------------------------------------------------//
 void ofApp::keyPressed(int key) {
 	if (key == 's' || key == 'S') {
-		control.getCameraImage().videoSettings();
+		control_.getCameraImage().videoSettings();
 	}
 	if (key == 'r' || key == 'R') {
-		control.addToThresh(10);
+		control_.addToThresh(10);
 	}
 	if (key == 'f' || key == 'F') {
-		control.addToThresh(-10);
+		control_.addToThresh(-10);
 	}
 	if (key == 't' || key == 'T') {
-		control.addToThresh(1);
+		control_.addToThresh(1);
 	}
 	if (key == 'g' || key == 'G') {
-		control.addToThresh(-1);
+		control_.addToThresh(-1);
 	}
 	if (key == ' ') {
-		if (model.game_state_ == model.CALIBRATE) {
-			model.game_state_ = model.GAME;
+		if (model_.game_state_ == model_.CALIBRATE) {
+			model_.game_state_ = model_.GAME;
 		}
-		else if (model.game_state_ == model.GAME) {
-			model.game_state_ = model.CALIBRATE;
+		else if (model_.game_state_ == model_.GAME) {
+			model_.game_state_ = model_.CALIBRATE;
 		}
 	}
 	if (key == OF_KEY_UP || key == OF_KEY_DOWN || key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
-		if (model.tryOpenDoor(key)) {
-			view.loadRoom(model.getFilename());
+		if (model_.tryOpenDoor(key)) {
+			view_.loadRoom(model_.getFilename());
 		}
 	}
 	

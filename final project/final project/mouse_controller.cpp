@@ -7,9 +7,7 @@
 using namespace cv;
 
 /* Find location and size of cursor*/
-vector<int> MouseController::calculateCursor(vector<int> last_cursor, int display_radius)
-{
+vector<int> MouseController::calculateCursor(vector<int> last_cursor, int display_radius) {
 	vector<int> cursor = { ofGetMouseX(), ofGetMouseY(), display_radius, 0 };
-
 	return cursor;
 }

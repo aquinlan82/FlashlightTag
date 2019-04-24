@@ -9,6 +9,11 @@ public:
 	int const X = 0;
 	int const Y = 1;
 
+	int const BAR_HEIGHT = 20;
+	int const INSTR_X = 50;
+	int const INSTR_Y = 15;
+	int const INSTR_SIZE = 12;
+
 	void setupScreens(int width, int height, std::string start_file);
 	void drawGameScreen(std::vector<int> cursor, std::string goal, std::string filename);
 	void drawWinScreen();
