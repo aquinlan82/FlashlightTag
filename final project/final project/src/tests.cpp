@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_MAIN 
+/*#define CATCH_CONFIG_MAIN 
 #include "catch.hpp"
 #include "controller.h"
 #include "view.h"
@@ -157,7 +157,7 @@ TEST_CASE("Change Room Test") {
 	REQUIRE(model.getFilename() == "office1.jpg");
 }
 
-
+*/
 
 
 

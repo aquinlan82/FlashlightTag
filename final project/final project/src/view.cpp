@@ -62,10 +62,10 @@ void View::drawGameScreen(vector<int> cursor, string goal, string filename) {
 	video_texture_.loadData(combined_video_);
 	video_texture_.draw(0, 0);
 
-	ofSetColor(ofColor::darkSlateGray);
+	ofSetColor(ofColor::lightGray);
 	ofDrawRectangle(0, 0, cam_width_, BAR_HEIGHT);
 	ofSetColor(ofColor::black);
-	text.drawString("Please find " + goal, INSTR_X, INSTR_Y);
+	text.drawString("Use arrow keys to change room. Please find " + goal, INSTR_X, INSTR_Y);
 	ofSetColor(ofColor::white);
 }
 
@@ -76,10 +76,10 @@ void View::drawThreshold(vector<int> cursor, ofxCvGrayscaleImage mask) {
 
 	ofSetColor(ofColor::red);
 	ofDrawCircle(cursor[X], cursor[Y], cursor[RADIUS]);
-	ofSetColor(ofColor::darkSlateGray);
+	ofSetColor(ofColor::lightGray);
 	ofDrawRectangle(0, 0, cam_width_, BAR_HEIGHT);
 	ofSetColor(ofColor::black);
-	text.drawString("Use the R, F, T, and G keys to callibrate the threshold. Press N to start the game", 50, 15);
+	text.drawString("Use the R, F, T, and G keys to callibrate the threshold. Press Space to start the game", 50, 15);
 	ofSetColor(ofColor::white);
 }
 

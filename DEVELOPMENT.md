@@ -1,7 +1,7 @@
 # Project Log
-**Week 1: Experimentation** 
+**Week 1: Experimentation**
 * Entry One
-	* Accomplishments: 
+	* Accomplishments:
 		* I started by playing with the videograbber library since there was very helpful examples provided by openframeworks.
 		With minor tweaking, I changed one of the examples so that it detected only very bright spots such as a flashlight. 
 		It works fairly well in a dark room but it also detects the light outside during the day.
@@ -11,9 +11,10 @@
 	* Problems:
 		* As I said, the videograbber detects the bright lights coming through windows as the same brightness as a flashlight,
 		so I will probably have to use openCV to detect the circular shape of a flashlight
+
 **Week 2**
 * Entry Two
-	* Accomplishments: 
+	* Accomplishments:
 		* I started by setting up a class structure. I made a controller, view, and model class, based on what we learned in lecture. I
 		designed it like that because I had already divided up the tasks of each class when I wrote my proposal, so it seemed logical to 
 		stick with it unless I came up with a better idea.
@@ -51,6 +52,7 @@
 		* The most difficult part of this was that I wanted to be able to use my methods with static images instead of the camera
 		for testing, but the ofx library is really weird about converting between different types of images. I also didn't really write any tests
 		for View because it mostly draws stuff to the screen, which is both easy to see is working and difficult to test automatically.
+
 **Week 3**
 * Entry Five
 	* Accomplishments:
@@ -75,7 +77,7 @@
 		of the game in the end is to use the flashlight
 	* Next Steps:
 		* I still need to fix the bugs from the last entry
-	
+
 * Entry Seven
 	* Accomplishments:
 		* I finished up my tests. I was able to cover the controller and model classes fairly well. I
@@ -85,3 +87,8 @@
 		replicated the error. I also made it slightly less laggy by deleting a few lines that unneccessarily drew on the screen.
 	* Problems:
 		* I didn't do much testing on the view class because I didn't know how to test image output in a meaningful way.
+
+**Week 4**
+* Entry Eight
+	* Accomplishments: Since this is only half a week, I didn't start the third stage of my project. I mostly just added final touches to the UI
+	and added the README info

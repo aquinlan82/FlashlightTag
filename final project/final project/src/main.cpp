@@ -1,4 +1,4 @@
-/*#include "ofMain.h"
+#include "ofMain.h"
 #include "ofApp.h"
 
 
@@ -16,4 +16,4 @@ int main() {
 	// pass in width and height too:
 	ofRunApp(new ofApp());
 
-}*/
+}

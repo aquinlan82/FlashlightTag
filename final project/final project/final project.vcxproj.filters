@@ -1472,6 +1472,9 @@
     <None Include="..\..\DEVELOPMENT.md">
       <Filter>documentation</Filter>
     </None>
+    <None Include="..\..\README.md">
+      <Filter>documentation</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />

@@ -17,8 +17,10 @@ first stage is a bare minimum that I would consider complete, the other stages a
 the object.
 * Stage 2: Map. There are doors that the user can somehow open that allows you to move from room to room. The user is looking
 for an object that can be in any of the rooms.
-* Stage 3: Rotation. In addition to moving from room to room, there is a way for the user to rotate 90 degrees so that each 
-room has multiple views associated with it and the user can turn around.
+* ~~Stage 3: Rotation. In addition to moving from room to room, there is a way for the user to rotate 90 degrees so that each 
+room has multiple views associated with it and the user can turn around.~~
+	* I didn't get to this step
+
 
 **Resources:** 
 * The [Videograbber](https://openframeworks.cc/documentation/video/) library in openframeworks can record what is on the screen.
