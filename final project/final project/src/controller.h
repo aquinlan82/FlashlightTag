@@ -13,8 +13,8 @@ public:
 	int const DEFAULT_THRESH = 250;
 
 	void setup(int width, int height, bool useCamera);
-	void updateInput();
-	vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
+	virtual void updateInput() = 0;
+	virtual vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius) = 0;
 	void setSize(int width, int height);
 	int getWidth();
 	int getHeight();
@@ -23,6 +23,7 @@ public:
 	ofxCvGrayscaleImage getMask();
 	vector<vector<int>> getBrightSpots();
 	void printBrightSpots();
+	Controller& operator= (const Controller &controller);
 
 protected:
 	int cam_width_;
@@ -42,12 +43,13 @@ public:
 	void updateMaskImg(string filename);
 	void findCircles();
 
-	void updateInput();
-	vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
+	virtual void updateInput();
+	virtual vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
 };
 
 
 class MouseController : public Controller {
 public:
-	vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
+	virtual vector<int> calculateCursor(std::vector<int> last_cursor, int disp_radius);
+	virtual void updateInput();
 };

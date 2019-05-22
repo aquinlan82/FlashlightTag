@@ -60,8 +60,8 @@ vector<vector<int>> Controller::getBrightSpots() {
 	return bright_spots_;
 }
 
-/* Not strictly needed for mouse but used for inheritance reasons */
-void Controller::updateInput() {
-	
+/**/
+Controller& Controller::operator= (const Controller &controller) {
+	return *this;
 }
 

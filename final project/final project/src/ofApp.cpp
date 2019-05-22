@@ -10,24 +10,28 @@
 using namespace cv;
 
 void ofApp::setup() {
-	control_.setup(ofGetWidth(), ofGetHeight(), true);
-	view_.setupScreens(ofGetWidth(), ofGetHeight(), "entry1.jpg");
+	control_ = &flash_;
+	(*control_).setup(ofGetWidth(), ofGetHeight(), true);
+	view_.setupScreens(ofGetWidth(), ofGetHeight());
 	model_.generateMap();
 }
 
 void ofApp::update() {
-	control_.updateInput();
-	vector<int> cursor = control_.calculateCursor(model_.getCursor(), model_.display_radius_);
-	model_.setCursor(cursor[control_.X], cursor[control_.Y], model_.display_radius_);
+	(*control_).updateInput();
+	vector<int> cursor = (*control_).calculateCursor(model_.getCursor(), model_.display_radius_);
+	model_.setCursor(cursor[(*control_).X], cursor[(*control_).Y], model_.display_radius_);
 	model_.checkWin();
 }
 
 void ofApp::draw() {
+	if (model_.game_state_ == model_.START) {
+		view_.drawStartScreen();
+	}
 	if (model_.game_state_ == model_.WIN) {
 		view_.drawWinScreen();
 	}
 	if (model_.game_state_ == model_.CALIBRATE) {
-		view_.drawThreshold(model_.getCursor(), control_.getMask());
+		view_.drawThreshold(model_.getCursor(), (*control_).getMask());
 	}
 	if (model_.game_state_ == model_.GAME) {
 		view_.drawGameScreen(model_.getCursor(), model_.getGoalName(), model_.getFilename());
@@ -37,26 +41,30 @@ void ofApp::draw() {
 //--------------------------------------------------------------//
 void ofApp::keyPressed(int key) {
 	if (key == 's' || key == 'S') {
-		control_.getCameraImage().videoSettings();
+		(*control_).getCameraImage().videoSettings();
 	}
 	if (key == 'r' || key == 'R') {
-		control_.addToThresh(10);
+		(*control_).addToThresh(10);
 	}
 	if (key == 'f' || key == 'F') {
-		control_.addToThresh(-10);
+		(*control_).addToThresh(-10);
 	}
 	if (key == 't' || key == 'T') {
-		control_.addToThresh(1);
+		(*control_).addToThresh(1);
 	}
 	if (key == 'g' || key == 'G') {
-		control_.addToThresh(-1);
+		(*control_).addToThresh(-1);
 	}
 	if (key == ' ') {
 		if (model_.game_state_ == model_.CALIBRATE) {
 			model_.game_state_ = model_.GAME;
-		}
-		else if (model_.game_state_ == model_.GAME) {
+		} else if (model_.game_state_ == model_.GAME) {
 			model_.game_state_ = model_.CALIBRATE;
+		} else if (model_.game_state_ == model_.START) {
+			model_.game_state_ = model_.CALIBRATE;
+		} else if (model_.game_state_ == model_.WIN) {
+			model_.generateMap();
+			model_.game_state_ = model_.GAME;
 		}
 	}
 	if (key == OF_KEY_UP || key == OF_KEY_DOWN || key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
@@ -64,7 +72,13 @@ void ofApp::keyPressed(int key) {
 			view_.loadRoom(model_.getFilename());
 		}
 	}
-	
+	if (key == 'm' || key == 'M') {
+		if (control_ == &mouse_) {
+			control_ = &flash_;
+		} else {
+			control_ = &mouse_;
+		}
+	}
 }
 
 void ofApp::keyReleased(int key) {

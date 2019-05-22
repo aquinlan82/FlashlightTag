@@ -3,7 +3,7 @@
 #include <cv.h>
 
 /* Initalize screens used in this class */
-void View::setupScreens(int width, int height, std::string start_file) {
+void View::setupScreens(int width, int height) {
 	text.load("verdana.ttf", INSTR_SIZE);
 
 	cam_width_ = width;
@@ -14,7 +14,6 @@ void View::setupScreens(int width, int height, std::string start_file) {
 	mask_.allocate(cam_width_, cam_height_, OF_PIXELS_RGB);
 	win_screen_.allocate(cam_width_, cam_height_, OF_IMAGE_COLOR);
 	ofSetVerticalSync(true);
-	loadRoom(start_file);
 }
 
 /* Sets mask as a black screen with a red cursor*/
@@ -57,6 +56,7 @@ void View::loadRoom(string filename) {
 
 /* Draws combined image*/
 void View::drawGameScreen(vector<int> cursor, string goal, string filename) {
+	loadRoom(filename);
 	createMask(cursor[X], cursor[Y], cursor[RADIUS]);
 	combineMaskAndRoom(cursor[X], cursor[Y], cursor[RADIUS]);
 	video_texture_.loadData(combined_video_);
@@ -79,7 +79,7 @@ void View::drawThreshold(vector<int> cursor, ofxCvGrayscaleImage mask) {
 	ofSetColor(ofColor::lightGray);
 	ofDrawRectangle(0, 0, cam_width_, BAR_HEIGHT);
 	ofSetColor(ofColor::black);
-	text.drawString("Use the R, F, T, and G keys to callibrate the threshold. Press Space to start the game", 50, 15);
+	text.drawString("Use the R and F keys to tweak the threshold and the T and G keys to change the threshold a lot. Press Space to start the game", 50, 15);
 	ofSetColor(ofColor::white);
 }
 
@@ -89,4 +89,11 @@ void View::drawWinScreen() {
 	hidden_screen_.setImageType(OF_IMAGE_COLOR);
 	hidden_screen_.draw(0, 0);
 
+}
+
+void View::drawStartScreen() {
+	hidden_screen_.load("title.png");
+	hidden_screen_.resize(cam_width_, cam_height_);
+	hidden_screen_.setImageType(OF_IMAGE_COLOR);
+	hidden_screen_.draw(0, 0);
 }

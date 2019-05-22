@@ -11,3 +11,7 @@ vector<int> MouseController::calculateCursor(vector<int> last_cursor, int displa
 	vector<int> cursor = { ofGetMouseX(), ofGetMouseY(), display_radius, 0 };
 	return cursor;
 }
+
+void MouseController::updateInput() {
+
+}

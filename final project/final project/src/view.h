@@ -14,13 +14,14 @@ public:
 	int const INSTR_Y = 20;
 	int const INSTR_SIZE = 14;
 
-	void setupScreens(int width, int height, std::string start_file);
+	void setupScreens(int width, int height);
 	void drawGameScreen(std::vector<int> cursor, std::string goal, std::string filename);
 	void drawWinScreen();
 	void createMask(int cursor_x, int cursor_y, int cursor_r);
 	void combineMaskAndRoom(int cursor_x, int cursor_y, int cursor_r);
 	void loadRoom(std::string filename);
 	void drawThreshold(std::vector<int> cursor, ofxCvGrayscaleImage mask);
+	void drawStartScreen();
 
 private:
 	int cam_width_;

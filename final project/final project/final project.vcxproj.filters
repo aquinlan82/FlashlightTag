@@ -1514,5 +1514,8 @@
     <Image Include="bin\data\entry1.jpg">
       <Filter>res\room_pics</Filter>
     </Image>
+    <Image Include="bin\data\title.png">
+      <Filter>res</Filter>
+    </Image>
   </ItemGroup>
 </Project>

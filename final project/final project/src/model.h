@@ -13,8 +13,8 @@ private:
 
 public:
 	int display_radius_ = 50;
-	enum states_ { CALIBRATE, GAME, WIN };
-	int game_state_ = CALIBRATE;
+	enum states_ { CALIBRATE, GAME, WIN, START };
+	int game_state_ = START;
 
 	void setCursor(int x, int y, int radius);
 	bool checkWin();

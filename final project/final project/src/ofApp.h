@@ -8,7 +8,9 @@
 
 class ofApp : public ofBaseApp {
 private:
-	MouseController control_;
+	Controller* control_;
+	FlashController flash_;
+	MouseController mouse_;
 	Model model_;
 	View view_;
 
