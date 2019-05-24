@@ -65,7 +65,8 @@ void View::drawGameScreen(vector<int> cursor, string goal, string filename) {
 	ofSetColor(ofColor::lightGray);
 	ofDrawRectangle(0, 0, cam_width_, BAR_HEIGHT);
 	ofSetColor(ofColor::black);
-	text.drawString("Use arrow keys to change room. Please find " + goal, INSTR_X, INSTR_Y);
+	text.drawString("Press up to change rooms. Please find " + goal, INSTR_X, INSTR_Y);
+	//text.drawString(to_string(cursor[X]) + " " + to_string(cursor[Y]), INSTR_X + 700, INSTR_Y);
 	ofSetColor(ofColor::white);
 }
 
@@ -83,6 +84,7 @@ void View::drawThreshold(vector<int> cursor, ofxCvGrayscaleImage mask) {
 	ofSetColor(ofColor::white);
 }
 
+/* Draws screen displayed when game over */
 void View::drawWinScreen() {
 	hidden_screen_.load("win_screen.jpg");
 	hidden_screen_.resize(cam_width_, cam_height_);
@@ -91,6 +93,7 @@ void View::drawWinScreen() {
 
 }
 
+/* Draws screen displayed when game starts */
 void View::drawStartScreen() {
 	hidden_screen_.load("title.png");
 	hidden_screen_.resize(cam_width_, cam_height_);

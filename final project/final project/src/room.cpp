@@ -1,9 +1,11 @@
 #include "room.h"
 
 /* Creates a room with a name, image, and doors*/
-Room::Room(std::string name, std::string image_name, vector<Door> doors) {
+Room::Room(std::string name, vector<Door> doors) {
 	name_ = name;
-	img_filename_ = image_name;
+	for (int i = 0; i < 4; i++) {
+		img_filenames_.push_back(name + to_string(i) + ".jpg");
+	}
 
 	for (Door door : doors) {
 		doors_.push_back(door);
@@ -11,9 +13,9 @@ Room::Room(std::string name, std::string image_name, vector<Door> doors) {
 }
 
 /* Returns name of new room if able to open door, or current room if impossible */
-std::string Room::openDoor(char activation_key) {
+std::string Room::openDoor(int side) {
 	for (Door door : doors_) {
-		if (door.getActivationKey() == activation_key) {
+		if (door.getSide() == side) {
 			return door.getNextName();
 		}
 	}
@@ -26,6 +28,6 @@ std::string Room::getName() {
 }
 
 /* Returns filename of image for this room*/
-std::string Room::getImageName() {
-	return img_filename_;
+std::string Room::getImageName(int side) {
+	return img_filenames_[side];
 }

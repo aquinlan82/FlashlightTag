@@ -13,7 +13,7 @@ void ofApp::setup() {
 	control_ = &flash_;
 	(*control_).setup(ofGetWidth(), ofGetHeight(), true);
 	view_.setupScreens(ofGetWidth(), ofGetHeight());
-	model_.generateMap();
+	model_.setup(ofGetWidth());
 }
 
 void ofApp::update() {
@@ -67,8 +67,8 @@ void ofApp::keyPressed(int key) {
 			model_.game_state_ = model_.GAME;
 		}
 	}
-	if (key == OF_KEY_UP || key == OF_KEY_DOWN || key == OF_KEY_LEFT || key == OF_KEY_RIGHT) {
-		if (model_.tryOpenDoor(key)) {
+	if (key == OF_KEY_UP) {
+		if (model_.tryOpenDoor()) {
 			view_.loadRoom(model_.getFilename());
 		}
 	}

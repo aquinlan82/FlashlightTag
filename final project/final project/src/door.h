@@ -6,11 +6,11 @@
 class Door {
 private:
 	std::string next_room_name_;
-	char activation_key_;
+	int side_;
 
 public:
-	Door(std::string name, char key);
+	Door(std::string name, int side);
 	std::string getNextName();
-	char getActivationKey();
+	int getSide();
 
 };

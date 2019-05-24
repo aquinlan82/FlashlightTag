@@ -7,13 +7,32 @@
 
 using namespace cv;
 
-/* Sets location and size of cursor */
+/* Initializes class data */
+void Model::setup(int width) {
+	map_.generateHouse();
+	screen_width_ = width;
+}
+
+/* Sets location and size of cursor  and rotates if needed*/
 void Model::setCursor(int x, int y, int radius) {
 	if (x > 0 && y > 0 && radius > 0) {
 		cursor_x_ = x;
 		cursor_y_ = y;
 		cursor_r_ = radius;
 	}
+	if (x < ROTATE_SIZE && x > 0 && !rotated_) {
+		side_--;
+		rotated_ = true;
+	} 
+	if (x > screen_width_ - ROTATE_SIZE && !rotated_) {
+		side_++;
+		rotated_ = true;
+	}
+	if (x > ROTATE_SIZE && x < screen_width_ - ROTATE_SIZE) {
+		rotated_ = false;
+	}
+	side_ = mod(side_, 4);
+	map_.setSide(side_);
 }
 
 /* Checks that cursor is in goal location and game state is correct */
@@ -53,8 +72,8 @@ std::string Model::getGoalName() {
 }
 
 /* Returns true if room changed, false otherwise */
-bool Model::tryOpenDoor(char activation_key) {
-	return map_.tryOpenDoor(activation_key);
+bool Model::tryOpenDoor() {
+	return map_.tryOpenDoor();
 }
 
 /* Returns filename of image for current room*/
@@ -62,10 +81,17 @@ std::string Model::getFilename() {
 	return map_.getFilename();
 }
 
+/* Returns vector of info about winning location*/
 std::vector<int> Model::getGoalLocation() {
 	return map_.getWinInfo();
 }
 
+/* Creates possible goals and sets one to find*/
 void Model::setGoal(int seed) {
 	map_.generateGoals(seed);
+}
+
+/* Modulo */
+int Model::mod(int a, int b) { 
+	return a >= 0 ? a % b : (b - abs(a%b)) % b; 
 }
