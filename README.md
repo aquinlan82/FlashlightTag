@@ -11,6 +11,8 @@ Use the arrow keys to change rooms and move your flashlight around the screen to
 Cursor can also be moved with mouse:
 ![Mouse Mode Example](exampleImages/3.png)
 
+For a live demo, click [here](https://youtu.be/uaJJN5eFm9E)!
+
 **How to Run:** The game is playable as is, all you need to do is run Flashlight Tag.exe in the root folder. If you want to delve into the code, there's also a few easy customizations:
 * By default, the flashlight is detected using your laptop's built in camera. To change cameras, change the index of the `vid_grabber_.setDeviceID(0); ` line in controller.cpp.
 * If you want to play with the mouse instead of a flashlight change the `control_ = mouse_;` in ofApp.cpp instead of `control_ = flash;`
