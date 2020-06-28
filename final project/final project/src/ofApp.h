@@ -6,6 +6,9 @@
 #include "view.h"
 #include "model.h"
 
+/*
+Upper level control of the program
+*/
 class ofApp : public ofBaseApp {
 private:
 	Controller* control_;

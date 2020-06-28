@@ -4,6 +4,10 @@
 #include "ofxOpenCv.h"
 #include "room.h"
 
+/*
+Stores how rooms are connected
+*/
+
 class Map {
 private:
 	vector<Room> rooms_;

@@ -3,6 +3,10 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 
+/*
+Connection point between rooms
+*/
+
 class Door {
 private:
 	std::string next_room_name_;

@@ -1,6 +1,11 @@
 #include "ofMain.h"
 #include "ofApp.h"
 
+/***
+Flashlight Tag
+Created by Allison Quinlan for CS 126
+May 2019
+***/
 
 int main() {
 	RECT desktop;

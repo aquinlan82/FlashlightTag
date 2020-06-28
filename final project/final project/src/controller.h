@@ -3,6 +3,10 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 
+
+/*
+Interfaces between model and view of program
+*/
 class Controller {
 
 public:

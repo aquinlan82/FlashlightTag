@@ -3,6 +3,10 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 
+/*
+Class that controls what the user sees
+*/
+
 class View {
 public:
 	int const RADIUS = 2;

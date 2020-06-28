@@ -59,6 +59,7 @@ void View::drawGameScreen(vector<int> cursor, string goal, string filename) {
 	loadRoom(filename);
 	createMask(cursor[X], cursor[Y], cursor[RADIUS]);
 	combineMaskAndRoom(cursor[X], cursor[Y], cursor[RADIUS]);
+	combineMaskAndRoom(cursor[X], cursor[Y], cursor[RADIUS]);
 	video_texture_.loadData(combined_video_);
 	video_texture_.draw(0, 0);
 
@@ -66,7 +67,6 @@ void View::drawGameScreen(vector<int> cursor, string goal, string filename) {
 	ofDrawRectangle(0, 0, cam_width_, BAR_HEIGHT);
 	ofSetColor(ofColor::black);
 	text.drawString("Press up to change rooms. Please find " + goal, INSTR_X, INSTR_Y);
-	//text.drawString(to_string(cursor[X]) + " " + to_string(cursor[Y]), INSTR_X + 700, INSTR_Y);
 	ofSetColor(ofColor::white);
 }
 

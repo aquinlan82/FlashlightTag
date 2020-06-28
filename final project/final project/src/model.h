@@ -2,6 +2,9 @@
 
 #include "map.h"
 
+/*
+Contains hidden data about game state
+*/
 class Model {
 private:
 	int const ROTATE_SIZE = 50;

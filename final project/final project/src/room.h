@@ -4,7 +4,9 @@
 #include "ofxOpenCv.h"
 #include "door.h"
 #include <vector>
-
+/*
+Contains data about each room the user can enter
+*/
 class Room {
 private: 
 	vector<Door> doors_;
