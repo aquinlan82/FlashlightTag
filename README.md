@@ -1,18 +1,22 @@
-#Flashlight Tag
+# Flashlight Tag
+
+![Title Image](exampleImages/title.png)
 
 **What is it?** virtual ISpy, with a real flashlight. Navigate around the house and move the cursor to explore each room. When you find the instructed object, you win! Includes a calibration mode to adjust for the lighting in your room:
-
+![Calibration Mode Example](exampleImages/1.png)
 
 Use the arrow keys to change rooms and move your flashlight around the screen to see different areas:
+![Flashlight Example](exampleImages/2.png)
 
 Cursor can also be moved with mouse:
+![Mouse Mode Example](exampleImages/3.png)
 
 **How to Run:** The game is playable as is, all you need to do is run Flashlight Tag.exe in the root folder. If you want to delve into the code, there's also a few easy customizations:
 * By default, the flashlight is detected using your laptop's built in camera. To change cameras, change the index of the `vid_grabber_.setDeviceID(0); ` line in controller.cpp.
 * If you want to play with the mouse instead of a flashlight change the `control_ = mouse_;` in ofApp.cpp instead of `control_ = flash;`
 
 
-**Project Goals, Skills, and Tools **
+**Project Goals, Skills, and Tools**
 * The main objective presented by the class was to create a clean, well-structured project using openFrameworks
 * My personal goal was to come up with a creative way to control the game, which eventually led me to use a flashlight
 * Some of the skills I developed while working on this project:
